@@ -14,18 +14,23 @@ class BooksController < ApplicationController
   end
 
   def create
-    logger.debug "#{params}"
     @book = Book.new(book_params)
-    @book.save
-    redirect_to @book
+    if @book.save
+      redirect_to @book
+    else
+      render :new
+    end
   end
 
   def edit
   end
 
   def update
-    @book.update(book_params)
-    redirect_to @book
+    if @book.update(book_params)
+      redirect_to @book
+    else
+      render :new
+    end
   end
 
   def destroy
